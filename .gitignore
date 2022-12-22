@@ -1,0 +1,6 @@
+﻿*.dll
+*.pdb
+**/bin
+**/obj
+/.coverage
+/.vs
