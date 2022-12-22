@@ -10,8 +10,8 @@ namespace RealPromo.API.Models.Hubs
         /*
          * Client - JS/C#/Java
          * RPC
-         * Client -> Hub
-         * Hub -> Client
+         * - Client(JS) -> Hub(C#) (Funcionário) -> (C# - CadastrarPromocao)
+         * - Hub(C#) -> Client(JS) (JS - ReceberPromocao)
          */
 
         public async Task CadastrarPromocao(Promocao promocao)
@@ -22,7 +22,8 @@ namespace RealPromo.API.Models.Hubs
              * Notificar usuário (SignalR)
              */
 
-
+            await Clients.Caller.SendAsync("CadastradoSucesso"); // Notificar Caller -> Cadastro realizado com sucesso!
+            await Clients.Others.SendAsync("ReceberPromocao", promocao); // Notificar que a promoçao chegou
         }
     }
 }
